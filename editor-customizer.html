@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Text Editor</title>
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            margin: 30px;
+        }
+
+        #editor {
+            width: 80%;
+            height: 200px;
+            margin: 20px auto;
+            padding: 15px;
+            border: 1px solid black;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Simple Text Editor</h2>
+
+    <label>Background Color:</label>
+    <input type="color" id="bg">
+
+    <label>Text Color:</label>
+    <input type="color" id="color">
+
+    <label>Font:</label>
+    <select id="font">
+        <option>Arial</option>
+        <option>Verdana</option>
+        <option>Times New Roman</option>
+        <option>Georgia</option>
+        <option>Courier New</option>
+    </select>
+
+    <div id="editor" contenteditable="true">
+        Type your text here...
+    </div>
+
+    <script>
+        let editor = document.getElementById("editor");
+
+        document.getElementById("bg").oninput = function() {
+            editor.style.backgroundColor = this.value;
+        };
+
+        document.getElementById("color").oninput = function() {
+            editor.style.color = this.value;
+        };
+
+        document.getElementById("font").onchange = function() {
+            editor.style.fontFamily = this.value;
+        };
+    </script>
+
+</body>
+</html>

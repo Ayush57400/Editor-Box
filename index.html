@@ -1,49 +1,107 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Text Editor</title>
+    <title>Simple Text Editor</title>
+
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: Arial;
+            margin: 0;
+            padding: 20px;
+            background-color: #f2f2f2;
+        }
+
+        h2 {
             text-align: center;
-            margin: 30px;
+            margin: 10px 0 20px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input, select {
+            padding: 8px;
+            font-size: 15px;
         }
 
         #editor {
-            width: 80%;
-            height: 200px;
-            margin: 20px auto;
-            padding: 15px;
-            border: 1px solid black;
-            text-align: left;
+            width: 100%;
+            min-height: calc(100vh - 150px);
+            padding: 25px;
+            border: 2px solid #555;
+            border-radius: 8px;
+            background-color: white;
+            color: black;
+            font-family: Arial;
+            font-size: 18px;
+            outline: none;
+            overflow: hidden;
         }
     </style>
 </head>
+
 <body>
 
     <h2>Simple Text Editor</h2>
 
-    <label>Background Color:</label>
-    <input type="color" id="bg">
+    <div class="controls">
+        <label>Background:</label>
+        <input type="color" id="bg" value="#ffffff">
 
-    <label>Text Color:</label>
-    <input type="color" id="color">
+        <label>Text Color:</label>
+        <input type="color" id="color" value="#000000">
 
-    <label>Font:</label>
-    <select id="font">
-        <option>Arial</option>
-        <option>Verdana</option>
-        <option>Times New Roman</option>
-        <option>Georgia</option>
-        <option>Courier New</option>
-    </select>
+        <label>Font:</label>
+        <select id="font">
+            <option>Arial</option>
+            <option>Verdana</option>
+            <option>Times New Roman</option>
+            <option>Georgia</option>
+            <option>Courier New</option>
+        </select>
+
+        <label>Font Size:</label>
+        <select id="size">
+            <option value="14px">14px</option>
+            <option value="16px">16px</option>
+            <option value="18px" selected>18px</option>
+            <option value="20px">20px</option>
+            <option value="24px">24px</option>
+            <option value="28px">28px</option>
+            <option value="32px">32px</option>
+        </select>
+    </div>
 
     <div id="editor" contenteditable="true">
-        Type your text here...
+        Start typing here...
     </div>
 
     <script>
         let editor = document.getElementById("editor");
+
+        function resizeEditor() {
+            editor.style.height = "auto";
+            editor.style.height = Math.max(
+                editor.scrollHeight,
+                window.innerHeight - 150
+            ) + "px";
+        }
+
+        editor.addEventListener("input", resizeEditor);
 
         document.getElementById("bg").oninput = function() {
             editor.style.backgroundColor = this.value;
@@ -56,6 +114,13 @@
         document.getElementById("font").onchange = function() {
             editor.style.fontFamily = this.value;
         };
+
+        document.getElementById("size").onchange = function() {
+            editor.style.fontSize = this.value;
+            resizeEditor();
+        };
+
+        resizeEditor();
     </script>
 
 </body>
